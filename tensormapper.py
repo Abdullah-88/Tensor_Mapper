@@ -73,7 +73,7 @@ class TTT(nn.Module):
 
 
 class TensorMapperBlock(nn.Module):
-    def __init__(self, dim, num_patch):
+    def __init__(self, dim):
         
         super().__init__()
         
@@ -107,11 +107,11 @@ class TensorMapperBlock(nn.Module):
 
 
 class TensorMapper(nn.Module):
-    def __init__(self, d_model,num_patch, num_layers):
+    def __init__(self, d_model, num_layers):
         super().__init__()
         
         self.model = nn.Sequential(
-            *[TensorMapperBlock(d_model,num_patch) for _ in range(num_layers)]
+            *[TensorMapperBlock(d_model) for _ in range(num_layers)]
         )
 
     def forward(self, x):
