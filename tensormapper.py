@@ -1,8 +1,6 @@
 import torch
 from torch import nn, Tensor
 
-
-
 class VecDyT(nn.Module):
     def __init__(self, input_shape):
     
@@ -13,8 +11,7 @@ class VecDyT(nn.Module):
     def forward(self, x):
         x = torch.tanh(self.alpha * x)
         return x
-        
-        
+                
 class GatingUnit(nn.Module):
     def __init__(self,dim):
         
@@ -24,8 +21,7 @@ class GatingUnit(nn.Module):
         self.proj_2 =  nn.Linear(dim,dim,bias=False)
             
         self.gelu = nn.GELU()
-       
-             	   
+                    	   
     def forward(self, x):
 
         u, v = x, x 
@@ -40,15 +36,12 @@ class TTT(nn.Module):
     def __init__(self, dim: int):
         
         super(TTT, self).__init__()
-            
-       
+                   
         self.mapping = nn.Linear(dim,dim,bias=False)
         self.State =  nn.Linear(dim,dim,bias=False)
         self.Probe =  nn.Linear(dim,dim,bias=False)
-               
-       
+                      
     def forward(self, in_seq: Tensor) -> Tensor:
-
        
         outs = []
         
@@ -70,8 +63,6 @@ class TTT(nn.Module):
         
         return out 
             
-
-
 class TensorMapperBlock(nn.Module):
     def __init__(self, dim):
         
@@ -84,9 +75,7 @@ class TensorMapperBlock(nn.Module):
         
 
     def forward(self, x):
-        
-        
-    
+            
         residual = x
     
         x = self.norm_1(x)    
@@ -105,7 +94,6 @@ class TensorMapperBlock(nn.Module):
 
         return x
 
-
 class TensorMapper(nn.Module):
     def __init__(self, d_model, num_layers):
         super().__init__()
@@ -117,5 +105,3 @@ class TensorMapper(nn.Module):
     def forward(self, x):
        
         return self.model(x)
-
-
